@@ -215,14 +215,8 @@ end
 
 
 % Power Calculations
-
-numerator_HAWT = trapz(z, trapz(x, f_HAWT .* U, 2));
 numerator_VAWT = trapz(z, trapz(x, f_VAWT .* U, 2));
-
-HAWT_denominator = 0.5*1.2*(top-bottom)*U0^3;
 VAWT_denominator = 0.5*1.2*(top-bottom)*U0^3;
 
 %Calculate efficiency
-
-HAWT_efficiency = numerator_HAWT / HAWT_denominator
-VAWT_efficiency = numerator_VAWT / VAWT_denominator
+VAWT_efficiency = numerator_VAWT / VAWT_denominator;
