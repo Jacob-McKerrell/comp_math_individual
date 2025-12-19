@@ -18,8 +18,8 @@ z = linspace(0,L_z,N_z+1);    % z-grid
 
 % Modification of f_x function
 
-bottom = 100;
-top = 200;
+bottom = 125;
+top = 175;
 f = -A .* exp(-(X-x_0).^2/(2*sig_x^2)) .* (tanh((Z-bottom)/delta) - tanh((Z-top)/delta));
 
 %Calculate new A_VAWT
@@ -106,9 +106,9 @@ imagesc(x, z, u);
 set(gca, 'YDir', 'normal');
 xlabel('$x$ (m)','interpreter','latex'); ylabel('$z$ (m)','interpreter','latex');
 title('Contour of $U_0+u(x,z)$','interpreter','latex', "FontSize",16);
-%colorbar;
-clim([16 20.1]);
-ylim([0 800])
+colorbar;
+clim([13.5 20.1]);
+ylim([0 500])
 fontsize(24,"points")
 
 
@@ -216,7 +216,7 @@ end
 
 % Power Calculations
 numerator_VAWT = trapz(z, trapz(x, f_VAWT .* U, 2));
-VAWT_denominator = 0.5*1.2*(top-bottom)*U0^3;
+VAWT_denominator = 0.5*1.20769*(top-bottom)*U0^3;
 
 %Calculate efficiency
 VAWT_efficiency = numerator_VAWT / VAWT_denominator;
