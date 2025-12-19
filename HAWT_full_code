@@ -11,6 +11,10 @@ sig_z = 40;    % Gaussian width z
 N_x = 1280;     % number of x points (FFT-friendly)
 N_z = 100;     % number of z intervals
 
+
+bottom = 100;
+top = 200;
+
 % Grids
 x = linspace(0,L_x,N_x);      % x-grid
 z = linspace(0,L_z,N_z+1);    % z-grid
@@ -18,10 +22,10 @@ z = linspace(0,L_z,N_z+1);    % z-grid
 [X,Z] = meshgrid(x,z); % Gridpoints
 
 % F_x
-f = -A .* exp(-(X-x_0).^2/(2*sig_x^2)) .* exp(-(Z-z_0).^2/(2*sig_z^2));
+f_HAWT = -A .* exp(-(X-x_0).^2/(2*sig_x^2)) .* exp(-(Z-z_0).^2/(2*sig_z^2));
 
 % FFT along x (columns) of force
-f_hat = fft(f,[],2);   % FFT along x, size (N_z+1 x N_x)
+f_hat = fft(f_HAWT,[],2);   % FFT along x, size (N_z+1 x N_x)
 
 % Solve ODE along z for each Fourier mode
 w_hat = zeros(size(f_hat));  % preallocate space
@@ -183,3 +187,12 @@ function [X_trajectory,Z_trajectory] = plotXplotY(X0,Z0,t_end,delta_t,F_U,F_W)
     X_trajectory(N+1) = X_current;
     Z_trajectory(N+1) = Z_current;
 end
+
+
+
+% Power Calculations
+numerator_HAWT = trapz(z, trapz(x, f_HAWT .* U, 2));
+HAWT_denominator = 0.5*1.2*(top-bottom)*U0^3;
+
+%Calculate efficiency
+HAWT_efficiency = numerator_HAWT / HAWT_denominator;
