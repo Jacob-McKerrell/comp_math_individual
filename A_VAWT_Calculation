@@ -20,7 +20,9 @@ z = linspace(0,L_z,N_z+1);    % z-grid
 
 
 f_HAWT = -A_HAWT .* exp(-(X-x_0).^2/(2*sig_x^2)) .* exp(-(Z-z_0).^2/(2*sig_z^2));
-f_VAWT = -A_HAWT .* exp(-(X-x_0).^2/(2*sig_x^2)) .* (tanh((Z-20)/delta) - tanh((Z-80)/delta));
+bottom = 125;
+top = 175;
+f_VAWT = -A_HAWT .* exp(-(X-x_0).^2/(2*sig_x^2)) .* (tanh((Z-bottom)/delta) - tanh((Z-top)/delta));
 
 
 %Calculate double integrals of f across full area domain using trapz
