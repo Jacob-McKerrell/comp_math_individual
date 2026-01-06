@@ -1,4 +1,4 @@
-# comp_math_individual
+# Computational Maths Individual Project
 
 Figure 1 is generated using "tanh approximation graph"
 
